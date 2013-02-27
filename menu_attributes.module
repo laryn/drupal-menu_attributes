@@ -92,9 +92,8 @@ function menu_attributes_menu_attribute_info() {
  */
 function menu_attributes_get_menu_attribute_info() {
   $attributes = module_invoke_all('menu_attribute_info');
-  drupal_alter('menu_attribute_info', $attributes);
 
-  // Merge in defaul values.
+  // Merge in default values.
   foreach ($attributes as $attribute => &$info) {
     $info += array(
       'form' => array(),
@@ -108,6 +107,7 @@ function menu_attributes_get_menu_attribute_info() {
       '#default_value' => variable_get("menu_attributes_{$attribute}_default", $info['default']),
     );
   }
+  drupal_alter('menu_attribute_info', $attributes);
 
   return $attributes;
 }
